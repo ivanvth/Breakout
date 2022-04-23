@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Breakout.LevelData
 {
     public class Level

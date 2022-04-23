@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Breakout.LevelData
 {
     public class LevelReader
@@ -6,7 +8,7 @@ namespace Breakout.LevelData
         public LevelReader(string fileName)
         {
             levelPath = Path.Combine("..", "Breakout", "Assets", "Levels", fileName);
-            System.Console.WriteLine(levelPath);
+            
         }
     }
 }
