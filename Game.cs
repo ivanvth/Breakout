@@ -7,10 +7,10 @@ namespace Breakout
 {
     public class Game : DIKUGame
     {
-        LevelReader levelReader;
+        LevelManager levelReader;
 
         public Game(WindowArgs windowArgs) : base(windowArgs) {
-            levelReader = new LevelReader("central-mass.txt");
+            levelReader = new LevelManager("level2.txt");
             
         }
 

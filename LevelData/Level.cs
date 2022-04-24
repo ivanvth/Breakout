@@ -4,12 +4,12 @@ namespace Breakout.LevelData
 {
     public class Level
     {
-        List<string> levelLines;
+        string[,] mapChars;
         string name;
 
-        public Level(string name, List<string> levelLines)
+        public Level(string name, string[,] map)
         {
-            this.levelLines = levelLines;
+            this.mapChars = map;
             this.name = name;
         }
     }
