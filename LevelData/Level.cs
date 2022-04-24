@@ -11,6 +11,10 @@ namespace Breakout.LevelData
         EntityContainer<Block> blocks = new EntityContainer<Block>();
         string name;
 
+        public int blockHeightOfScreen { get; private set; }
+        public int blockWidthOfScreen { get; private set; }
+        public float blockHeight { get; private set; }
+        public float blockWidth { get; private set; }
         public Level(string name, string[,] map)
         {
             this.mapChars = map;
@@ -19,12 +23,11 @@ namespace Breakout.LevelData
         }
 
         private void MapToBlocks() {
-            int blockHeightOfScreen = mapChars.GetLength(0);
-            int blockWidthOfScreen = mapChars.GetLength(1);
-            float blockHeight = 1f / blockHeightOfScreen;
-            float blockWidth = 1f / blockWidthOfScreen;
+            blockHeightOfScreen = mapChars.GetLength(0);
+            blockWidthOfScreen = mapChars.GetLength(1);
+            blockHeight = 1f / blockHeightOfScreen;
+            blockWidth = 1f / blockWidthOfScreen;
 
-            System.Console.WriteLine($"Height: {blockHeightOfScreen}, Width: {blockWidthOfScreen}");
             for (int i=0; i<mapChars.GetLength(0); i++) {
                 for (int j=0; j<mapChars.GetLength(1); j++) {
                     string blockName = mapChars[i, j];
@@ -33,7 +36,7 @@ namespace Breakout.LevelData
                         string damagedBlockName = splitBlockName[0] + "-damaged.png";
                         float posY = 1f - blockHeight - i * blockHeight;
                         float posX = j * blockWidth;
-
+                        
                         blocks.AddEntity(new Block(
                             new StationaryShape(posX, posY, blockWidth, blockHeight),
                             new Image(Path.Combine("..", "Breakout", "Assets", "Images", blockName)),
