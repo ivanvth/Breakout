@@ -7,10 +7,10 @@ namespace Breakout
 {
     public class Game : DIKUGame
     {
-        LevelManager levelReader;
+        LevelManager levelManager;
 
         public Game(WindowArgs windowArgs) : base(windowArgs) {
-            levelReader = new LevelManager("level2.txt");
+            levelManager = new LevelManager("level2.txt");
             
         }
 
@@ -19,7 +19,7 @@ namespace Breakout
         }
 
         public override void Render() {
-
+            levelManager.CurrentLevel.Render();
         }
     }
 }
