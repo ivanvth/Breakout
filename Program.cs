@@ -5,8 +5,9 @@ namespace Breakout {
 
         static void Main(string[] args)
         {
-            var windowArgs = new WindowArgs() { Title = "Breakout" };
+            var windowArgs = new WindowArgs() { Title = "Breakout", Resizable = false };
             Game game = new Game(windowArgs);
+            game.Run();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Breakout
 
         public Game(WindowArgs windowArgs) : base(windowArgs) {
             levelReader = new LevelReader("central-mass.txt");
+            
         }
 
         public override void Update() {
