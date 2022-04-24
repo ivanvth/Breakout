@@ -32,8 +32,7 @@ namespace Breakout
         public void KeyHandler(KeyboardAction action, KeyboardKey key) {
             GameEvent gameEvent = new GameEvent();
             switch (action) {
-                case KeyboardAction.KeyPress:
-                    
+                case KeyboardAction.KeyPress:                
                     switch (key) {
                         case KeyboardKey.Escape:
                             gameEvent.EventType = GameEventType.GameStateEvent;
@@ -49,10 +48,13 @@ namespace Breakout
                             gameEvent.StringArg1 = "START_MOVE";
                             gameEvent.StringArg2 = "RIGHT";
                             break;
+                        case KeyboardKey.Space:
+                            gameEvent.EventType = GameEventType.GameStateEvent;
+                            gameEvent.StringArg1 = "SHOOT";
+                            break;
                     }
                     break;
-                case KeyboardAction.KeyRelease:
-                    
+                case KeyboardAction.KeyRelease:                
                     switch (key) {
                         case KeyboardKey.Left:
                             gameEvent.EventType = GameEventType.PlayerEvent;
@@ -73,12 +75,15 @@ namespace Breakout
             GameBus.GetBus().RegisterEvent(gameEvent);
         }
         private void CreatePlayer() {
-            float posX = currentLevel.blockWidth * (currentLevel.blockWidthOfScreen * 0.45f);
-            float posY = currentLevel.blockHeight;
             float width = currentLevel.blockWidth * 1.5f;
             float height = currentLevel.blockHeight * 0.8f;
+            
+            float posX = 0.5f - (0.5f * width);
+            float posY = 0.02f;
+            
             player = new Player(new DynamicShape(posX, posY, width, height));
         }
+
         public override void Update() {
             GameBus.GetBus().ProcessEventsSequentially();
         }
@@ -93,6 +98,9 @@ namespace Breakout
             switch (gameEvent.StringArg1) {
                 case "QUIT":
                     window.CloseWindow();
+                    break;
+                case "SHOOT":
+                    currentLevel.RememberToDelete();
                     break;
                 default:
                     System.Console.WriteLine("Something happened - Game.ProcessEvent() ");

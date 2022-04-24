@@ -6,8 +6,8 @@ namespace Breakout.LevelData
 {
     public class Block : Entity
     {
-        int Value;
-        int Health;
+        int Value = 100;
+        int Health = 100;
 
         IBaseImage damagedImage;
         public Block(Shape shape, IBaseImage image, IBaseImage damaged) : base(shape, image)
@@ -15,9 +15,15 @@ namespace Breakout.LevelData
             damagedImage = damaged;
         }
 
-        private void DamageBlock() {
-            //this.Shape = new StationaryShape(Shape.Position.X, Shape.Position.Y, Shape.Extent.X, Shape.Extent.Y);
-            this.Image = damagedImage;
+        public void DamageBlock(int damage) {
+            Health -= damage;
+            if (Health <= 50) {
+                this.Image = damagedImage;
+            }
+            if (Health <= 0) {
+                this.DeleteEntity();
+            }          
         }
+
     }
 }

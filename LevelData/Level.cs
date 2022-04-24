@@ -22,6 +22,10 @@ namespace Breakout.LevelData
             MapToBlocks();
         }
 
+        public void RememberToDelete() {
+            blocks.Iterate(block => block.DamageBlock(50));
+            System.Console.WriteLine(blocks.CountEntities());
+        }
         private void MapToBlocks() {
             blockHeightOfScreen = mapChars.GetLength(0);
             blockWidthOfScreen = mapChars.GetLength(1);
@@ -47,8 +51,7 @@ namespace Breakout.LevelData
                 }
             }
         }
-        public void Render() {
-            
+        public void Render() {            
             blocks.RenderEntities();
         }
     }
