@@ -19,12 +19,13 @@ namespace Breakout
             // events
             window.SetKeyEventHandler(KeyHandler);
             GameBus.GetBus().InitializeEventBus(new List<GameEventType> 
-            { 
+            {
+                 
                 GameEventType.GameStateEvent,
                 GameEventType.PlayerEvent 
             });
             GameBus.GetBus().Subscribe(GameEventType.GameStateEvent, this);
-            levelManager = new LevelManager("level2.txt");
+            levelManager = new LevelManager("level1.txt");
             currentLevel = levelManager.CurrentLevel;
             CreatePlayer();
         }
