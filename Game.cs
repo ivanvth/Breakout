@@ -20,7 +20,7 @@ namespace Breakout
             window.SetKeyEventHandler(KeyHandler);
             GameBus.GetBus().InitializeEventBus(new List<GameEventType> 
             {
-                 
+                
                 GameEventType.GameStateEvent,
                 GameEventType.PlayerEvent 
             });
