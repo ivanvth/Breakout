@@ -20,6 +20,7 @@ namespace Breakout
             window.SetKeyEventHandler(KeyHandler);
             GameBus.GetBus().InitializeEventBus(new List<GameEventType> 
             {
+                
                 GameEventType.WindowEvent,
                 //GameEventType.GameStateEvent,
                 GameEventType.PlayerEvent 
@@ -36,7 +37,7 @@ namespace Breakout
                 case KeyboardAction.KeyPress:                
                     switch (key) {
                         case KeyboardKey.Escape:
-                            gameEvent.EventType = GameEventType.GameStateEvent;
+                            gameEvent.EventType = GameEventType.WindowEvent;
                             gameEvent.StringArg1 = "QUIT";
                             break;
                         case KeyboardKey.Left:
@@ -50,7 +51,7 @@ namespace Breakout
                             gameEvent.StringArg2 = "RIGHT";
                             break;
                         case KeyboardKey.Space:
-                            gameEvent.EventType = GameEventType.GameStateEvent;
+                            gameEvent.EventType = GameEventType.WindowEvent;
                             gameEvent.StringArg1 = "SHOOT";
                             break;
                     }
