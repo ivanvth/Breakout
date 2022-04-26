@@ -11,7 +11,7 @@ namespace Breakout
 {
     public class Game : DIKUGame, IGameEventProcessor
     {
-        LevelManager levelManager;
+        //LevelManager levelManager;
         Level currentLevel;
         Player player;
 
@@ -26,7 +26,7 @@ namespace Breakout
                 GameEventType.PlayerEvent 
             });
             GameBus.GetBus().Subscribe(GameEventType.WindowEvent, this);
-            levelManager = new LevelManager("level1.txt");
+            LevelManager levelManager = new LevelManager("level1.txt");
             currentLevel = levelManager.CurrentLevel;
             CreatePlayer();
         }
