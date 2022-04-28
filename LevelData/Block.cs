@@ -6,8 +6,8 @@ namespace Breakout.LevelData
 {
     public class Block : Entity
     {
-        int Value = 100;
-        int Health = 100;
+        public int Value = 100;
+        public int Health = 100;
 
         IBaseImage damagedImage;
         public Block(Shape shape, IBaseImage image, IBaseImage damaged) : base(shape, image)
