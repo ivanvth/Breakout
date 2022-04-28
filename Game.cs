@@ -26,7 +26,8 @@ namespace Breakout
                 GameEventType.PlayerEvent 
             });
             GameBus.GetBus().Subscribe(GameEventType.WindowEvent, this);
-            LevelManager levelManager = new LevelManager("level1.txt");
+            LevelManager levelManager = new LevelManager();
+            levelManager.AddLevel("level1.txt");
             currentLevel = levelManager.CurrentLevel;
             CreatePlayer();
         }

@@ -11,18 +11,24 @@ namespace Breakout.LevelData
         private Dictionary<string, string> metaData = new Dictionary<string, string>();
         private Dictionary<char, string> legend = new Dictionary<char, string>();
 
+        private List<Level> levels;
+
         public Level CurrentLevel {get; private set; }
-        public LevelManager(string fileName)
+        public LevelManager()
         {
+            levels = new();
+        }
+
+        public void AddLevel(string fileName) {
             string levelPath = Path.Combine("..", "Breakout", "Assets", "Levels", fileName);
             streamReader = new StreamReader(levelPath);
             ReadData();
             CreateLevel();
         }
-
         private void CreateLevel() {
             string name = metaData.ContainsKey("name") ? metaData["name"] : "level with no name";
             CurrentLevel = new Level(name, map);
+            levels.Add(CurrentLevel);
         }
         
         private void ReadData() {
