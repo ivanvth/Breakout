@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace Breakout.LevelData
@@ -20,10 +21,18 @@ namespace Breakout.LevelData
         }
 
         public void AddLevel(string fileName) {
-            string levelPath = Path.Combine("..", "Breakout", "Assets", "Levels", fileName);
-            streamReader = new StreamReader(levelPath);
-            ReadData();
-            CreateLevel();
+            metaData = new Dictionary<string, string>();
+            legend = new Dictionary<char, string>();
+            string levelPath;
+            try {
+                levelPath = Path.Combine("..", "Breakout", "Assets", "Levels", fileName);
+                streamReader = new StreamReader(levelPath);
+                ReadData();
+                CreateLevel();
+            } catch (FileNotFoundException e) {
+                System.Console.WriteLine("no such filename: " + e.Message);
+            }
+            
         }
         private void CreateLevel() {
             string name = metaData.ContainsKey("name") ? metaData["name"] : "level with no name";
