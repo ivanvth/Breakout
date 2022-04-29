@@ -24,7 +24,7 @@ namespace Breakout.LevelData
             AddLevels();
         }
 
-        public void AddLevels() {
+        private void AddLevels() {
             
             foreach (string filename in filenames) {
                 metaData = new Dictionary<string, string>();

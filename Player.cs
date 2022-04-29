@@ -11,7 +11,7 @@ namespace Breakout
     public class Player : IGameEventProcessor
     {
         private Entity playerEntity;
-        private DynamicShape playerShape;
+        public DynamicShape PlayerShape { get; private set; }
 
         private float moveLeft = 0.0f;
         private float moveRight = 0.0f;
@@ -24,17 +24,17 @@ namespace Breakout
 
         public Player(DynamicShape playerShape)
         {
-            this.playerShape = playerShape;
+            this.PlayerShape = playerShape;
 
             playerAnimation = new AnimationContainer(1);
             playerStrides = ImageStride.CreateStrides(3, Path.Combine("..", "Breakout", "Assets", "Images", "playerStride.png"));
             
-            playerEntity = new Entity(this.playerShape, new ImageStride(180, playerStrides));
+            playerEntity = new Entity(this.PlayerShape, new ImageStride(180, playerStrides));
 
             GameBus.GetBus().Subscribe(GameEventType.PlayerEvent, this);
 
             minX = 0f;
-            maxX = 1f - this.playerShape.Extent.X;
+            maxX = 1f - this.PlayerShape.Extent.X;
         }
 
         public void ProcessEvent(GameEvent gameEvent)
@@ -63,13 +63,13 @@ namespace Breakout
             }
         }
 
-        public void Move() {
-            playerShape.Move();
-            if (playerShape.Position.X < minX) {
-                playerShape.Position.X = minX;
+        private void Move() {
+            PlayerShape.Move();
+            if (PlayerShape.Position.X < minX) {
+                PlayerShape.Position.X = minX;
             }
-            else if (playerShape.Position.X > maxX) {
-                playerShape.Position.X = maxX;
+            else if (PlayerShape.Position.X > maxX) {
+                PlayerShape.Position.X = maxX;
             }
         }
         private void MoveLeft(bool shouldMove) {
@@ -83,7 +83,7 @@ namespace Breakout
         }
 
         private void UpdateDirection() {
-            playerShape.ChangeDirection(new Vec2F(moveRight-moveLeft, 0.0f));
+            PlayerShape.ChangeDirection(new Vec2F(moveRight-moveLeft, 0.0f));
         }
         public void Render() {
             Move();
