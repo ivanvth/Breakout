@@ -9,16 +9,19 @@ namespace Breakout.LevelData
     {
         string[,] mapChars;
         EntityContainer<Block> blocks = new EntityContainer<Block>();
-        string name;
+        public string Name {get; private set;}
+
+        private Dictionary<string, string> metaData = new();
 
         public int blockHeightOfScreen { get; private set; }
         public int blockWidthOfScreen { get; private set; }
         public float blockHeight { get; private set; }
         public float blockWidth { get; private set; }
-        public Level(string name, string[,] map)
+        public Level(string name, string[,] map, Dictionary<string, string> metaData)
         {
             this.mapChars = map;
-            this.name = name;
+            this.Name = name;
+            this.metaData = metaData;
             MapToBlocks();
         }
 
@@ -53,6 +56,18 @@ namespace Breakout.LevelData
         }
         public void Render() {            
             blocks.RenderEntities();
+        }
+
+        public override string ToString() {
+            string s = "Level Name: " + Name;
+
+            foreach (KeyValuePair<string, string> entry in metaData) {
+                if (!entry.Key.Equals("Name")) {
+                    s += "\n" + $"{entry.Key, 20} - {entry.Value, 10}";
+                }
+            }
+
+            return s;
         }
     }
 }

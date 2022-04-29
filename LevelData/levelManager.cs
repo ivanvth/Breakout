@@ -14,30 +14,39 @@ namespace Breakout.LevelData
 
         private List<Level> levels;
 
+        private string[] filenames;
         public Level CurrentLevel {get; private set; }
-        public LevelManager()
+        public LevelManager(string[] filenames)
         {
+            this.filenames = filenames;
             levels = new();
+            AddLevels();
         }
 
-        public void AddLevel(string fileName) {
-            metaData = new Dictionary<string, string>();
-            legend = new Dictionary<char, string>();
-            string levelPath;
-            try {
-                levelPath = Path.Combine("..", "Breakout", "Assets", "Levels", fileName);
-                streamReader = new StreamReader(levelPath);
+        public void AddLevels() {
+            
+            foreach (string filename in filenames) {
+                metaData = new Dictionary<string, string>();
+                legend = new Dictionary<char, string>();
+                try {
+                streamReader = new StreamReader(filename);
                 ReadData();
                 CreateLevel();
-            } catch (FileNotFoundException e) {
-                System.Console.WriteLine("no such filename: " + e.Message);
+                } catch (FileNotFoundException e) {
+                    System.Console.WriteLine("no such filename: " + e.Message);
+                }
             }
-            
         }
+
         private void CreateLevel() {
-            string name = metaData.ContainsKey("name") ? metaData["name"] : "level with no name";
-            CurrentLevel = new Level(name, map);
-            levels.Add(CurrentLevel);
+            string name = metaData.ContainsKey("Name") ? metaData["Name"] : "level with no name";
+            Level newLevel = new Level(name, map, metaData);
+            levels.Add(newLevel);
+            CurrentLevel = CurrentLevel ?? newLevel;
+            System.Console.WriteLine(newLevel);
+            if (name.Equals("LEVEL 1")) {
+                CurrentLevel = newLevel;
+            }
         }
         
         private void ReadData() {

@@ -6,29 +6,32 @@ using DIKUArcade.Entities;
 using DIKUArcade.Events;
 using DIKUArcade.Input;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Breakout
 {
     public class Game : DIKUGame, IGameEventProcessor
     {
-        //LevelManager levelManager;
         Level currentLevel;
         Player player;
 
         public Game(WindowArgs windowArgs) : base(windowArgs) {
-            // events
+            
+            // Events
             window.SetKeyEventHandler(KeyHandler);
             GameBus.GetBus().InitializeEventBus(new List<GameEventType> 
-            {
-                
+            {            
                 GameEventType.WindowEvent,
-                //GameEventType.GameStateEvent,
                 GameEventType.PlayerEvent 
             });
             GameBus.GetBus().Subscribe(GameEventType.WindowEvent, this);
-            LevelManager levelManager = new LevelManager();
-            levelManager.AddLevel("level1.txt");
+
+            // LevelManager
+            string[] filenames = Directory.GetFiles(Path.Combine("..", "Breakout", "Assets", "Levels"));
+            LevelManager levelManager = new LevelManager(filenames);
             currentLevel = levelManager.CurrentLevel;
+
+            // Player
             CreatePlayer();
         }
 
