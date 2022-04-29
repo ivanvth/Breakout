@@ -16,7 +16,7 @@ namespace Breakout
         Player player;
 
         public Game(WindowArgs windowArgs) : base(windowArgs) {
-            
+
             // Events
             window.SetKeyEventHandler(KeyHandler);
             GameBus.GetBus().InitializeEventBus(new List<GameEventType> 
@@ -35,7 +35,7 @@ namespace Breakout
             CreatePlayer();
         }
 
-        public void KeyHandler(KeyboardAction action, KeyboardKey key) {
+        private void KeyHandler(KeyboardAction action, KeyboardKey key) {
             GameEvent gameEvent = new GameEvent();
             switch (action) {
                 case KeyboardAction.KeyPress:                
@@ -73,9 +73,6 @@ namespace Breakout
                             gameEvent.StringArg2 = "RIGHT";
                             break;
                     }
-                    break;
-                default:
-                    System.Console.WriteLine($"Something else happened - action: {action}, key: {key}.");
                     break;
             }
             GameBus.GetBus().RegisterEvent(gameEvent);
